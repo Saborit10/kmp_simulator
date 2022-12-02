@@ -1,0 +1,13 @@
+.tile{
+    background-color: lightslategray;
+    padding: 3px 3px 3px 3px;
+    margin: 3px 3px 3px 3px;
+    width: 20px;
+    font-family: "Fira Code", sans-serif;
+    color: #282c34;
+    text-align: center;
+}
+
+.matched{
+    background-color: #61dafb;
+}
