@@ -1,13 +1,44 @@
+
+@font-face {
+    font-family: MartianFont;
+    src: url("../assets/MartianMono-VariableFont_wdth,wght.ttf");
+}
+
+@font-face {
+    font-family: RobotoFont;
+    src: url("../assets/Roboto-Bold.ttf");
+}
+
 .tile{
-    background-color: lightslategray;
+    background-color: #AB6B51; /*lightslategray;*/
     padding: 3px 3px 3px 3px;
     margin: 3px 3px 3px 3px;
     width: 20px;
-    font-family: "Fira Code", sans-serif;
-    color: #282c34;
+    font-family: Roboto, sans-serif;
+    /*font-weight: 200;*/
+    color: #2B2F3A;
     text-align: center;
+    border-radius: 3px;
+    border-width: 10px;
+    border-color: black;
 }
 
 .matched{
-    background-color: #61dafb;
+    background-color: #2F435A;
+    color: #f4f5f6;
 }
+
+.selected{
+    background-color: #39918C;
+    color: black;
+}
+
+.compared{
+    background-color: #5C4E4E;
+    color: black;
+}
+
+/* Blue Green #39918C */
+/*Brown1 #D0B49F*/
+/*Brown2 #AB6B51*/
+/*Cornflower #2F435A*/

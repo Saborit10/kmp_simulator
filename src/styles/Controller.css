@@ -1,0 +1,27 @@
+@font-face {
+    font-family: OswaldFont;
+    src: url("../assets/Oswald-VariableFont_wght.ttf");
+}
+
+@font-face {
+    font-family: EspecialEliteFont;
+    src: url("../assets/SpecialElite-Regular.ttf");
+}
+
+@font-face {
+    font-family: RobotoFont;
+    src: url("../assets/Roboto-Regular.ttf");
+}
+
+
+.message-box{
+    font-family: "RobotoFont", sans-serif;
+    font-size: 10px;
+    font-weight: 100;
+    /*background-color: #D0B49F;*/
+    padding: 10px;
+    min-height: 50px;
+    margin-top: 15px;
+    border-radius: 5px;
+    color: black;
+}
