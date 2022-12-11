@@ -18,10 +18,22 @@
     font-family: "RobotoFont", sans-serif;
     font-size: 10px;
     font-weight: 100;
+
     /*background-color: #D0B49F;*/
-    padding: 10px;
-    min-height: 50px;
-    margin-top: 15px;
-    border-radius: 5px;
+
+    text-align: center;
+
+    /*min-height: 10em;*/
+    /*display: table-cell;*/
+    /*vertical-align: middle;*/
+
     color: black;
+
+    background-color: #D0B49F;
+
+    height: 100%;
+
+    padding: 20px 5px;
+
+    overflow: hidden;
 }

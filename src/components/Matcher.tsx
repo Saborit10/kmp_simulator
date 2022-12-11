@@ -18,8 +18,6 @@ type Prop = {
     visiblePatternPrefixLength: number
 }
 
-
-// function Matcher({pattern, text, cmpPatternId, cmpTextId, matchedPatternPrefix, patternPos, selectedPatternPrefix, visiblePatternPrefixLength}) {
 export function Matcher({pattern, text, cmpPatternId, cmpTextId, matchedPatternInterval, matchedTextInterval,
                             selectedPatternInterval, visiblePatternPrefixLength}: Prop){
 
@@ -27,7 +25,7 @@ export function Matcher({pattern, text, cmpPatternId, cmpTextId, matchedPatternI
     let patternMargin = patternPos * TILE_WIDTH;
 
     return (
-      <>
+      <div className="matcher-container">
           <div className="text-container">
               <TextStringTile
                 text={text}
@@ -45,6 +43,6 @@ export function Matcher({pattern, text, cmpPatternId, cmpTextId, matchedPatternI
                 selectedInterval={selectedPatternInterval}
               />
           </div>
-      </>
+      </div>
     );
 }

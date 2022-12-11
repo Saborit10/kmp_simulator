@@ -1,20 +1,46 @@
+
+// TSX
 import React, {useState} from 'react';
-import './App.css';
 import {Matcher} from "./components/Matcher";
-import {knuthMorrisPrattGenerator} from "./algorithms/KMPAlgorithm";
 import {Controller} from "./components/Controller";
-import {Interval} from "./algorithms/Interval";
-import {State} from './algorithms/State'
 import {CodeContainer} from "./components/CodeContainer";
 
+// CSS
+import './App.css';
+
+// TS
+import {knuthMorrisPrattGenerator} from "./algorithms/KMPAlgorithm";
+import {Interval} from "./algorithms/Interval";
+import {State} from './algorithms/State'
+import {json_string} from "./algorithms/JavaCode";
+import {Event} from "./algorithms/KMPAlgorithm";
+
+
+function extractAll(generator: Generator<Event>) {
+    let events: Event[] = [];
+
+    while( true ){
+        let item = generator.next();
+
+        if( item.done === true ){
+            break;
+        }
+
+        events.push(item.value);
+    }
+    return events;
+}
 
 function App() {
 
     function onNextClick() {
-        let item = gen.next();
+        console.log(eventId)
+        setEventId(eventId + 1);
+        console.log(eventId)
 
-        setMsg(item.value.msg);
-        setState(item.value.data);
+        setMsg(events[eventId].msg);
+        setState(events[eventId].data);
+        setLine(events[eventId].line)
     }
 
     let pattern = "ababaca";
@@ -24,8 +50,10 @@ function App() {
     // let text = "abababb";
 
     /* Hooks */
-    const [gen, setGen] = useState(knuthMorrisPrattGenerator(pattern, text));
+    const [events, setEvents] = useState(extractAll(knuthMorrisPrattGenerator(pattern, text)));
+    const [eventId, setEventId] = useState(-1);
     const [msg, setMsg] = useState("");
+    const [line, setLine] = useState(-1);
 
     const [state, setState] = useState(
       new State(
@@ -38,35 +66,44 @@ function App() {
       )
     );
 
+    const json_object = JSON.parse(json_string)
+
     return (
       <div className="App">
-          {/*<div className="matcher-container">*/}
-          {/*    <Matcher*/}
-          {/*      pattern={pattern}*/}
-          {/*      text={text}*/}
-          {/*      cmpPatternId={state.cmpPatternId}*/}
-          {/*      cmpTextId={state.cmpTextId}*/}
-          {/*      matchedPatternInterval={state.matchedPatternInterval}*/}
-          {/*      matchedTextInterval={state.matchedTextInterval}*/}
-          {/*      selectedPatternInterval={state.selectedPatternInterval}*/}
-          {/*      visiblePatternPrefixLength={state.visiblePatternPrefixLength}*/}
-          {/*    />*/}
-          {/*</div>*/}
+          <h1>
+              Knuth-Morris-Pratt
+          </h1>
+
+          <Matcher
+                pattern={pattern}
+                text={text}
+                cmpPatternId={state.cmpPatternId}
+                cmpTextId={state.cmpTextId}
+                matchedPatternInterval={state.matchedPatternInterval}
+                matchedTextInterval={state.matchedTextInterval}
+                selectedPatternInterval={state.selectedPatternInterval}
+                visiblePatternPrefixLength={state.visiblePatternPrefixLength}
+          />
 
           <div className="controller-container">
-              <Controller
-                text={msg}
-              />
-              <div>
+              <div className="code-message-container">
+                  <CodeContainer
+                    code={json_object["code"]}
+                    indent={json_object["indent"]}
+                    selectedLine={line}
+                  />
+
+                  <Controller
+                    text={msg}
+                  />
+
+              </div>
+
+              <div className="panel-container">
                   <button onClick={onNextClick}>NEXT</button>
               </div>
 
           </div>
-
-          <CodeContainer
-            code={["int a = 0;", "for(int i=0; i<=n; i++)", "sol++;"]}
-            indent={[0, 0, 1]}
-          />
       </div>
     );
 }

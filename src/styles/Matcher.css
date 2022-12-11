@@ -6,3 +6,16 @@
 .cursor-container{
     height: 10px;
 }
+
+.matcher-container{
+    background-color: #D0B49F;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    border-radius: 3px;
+    min-height: 103px;
+
+    /* Center */
+    width: fit-content;
+    margin: 20px auto;
+}

@@ -1,6 +1,44 @@
 
 .code-container{
-    background-color: #D0B49F;
+    background-color: #C3C3C3;
     font-family: "Fira Code", sans-serif;
-    font-size: 13px;
+    font-size: 8px;
+    display: block;
+
+    margin: 0 auto;
+
+    padding: 5px;
+
+    width: 50%;
+    float: left;
+
+    height: 100%;
 }
+
+.line-container{
+    min-height: 10px;
+}
+
+.text-line-container{
+    margin: 0 5px;
+}
+
+a{
+    color: darkslateblue;
+}
+
+.line-container > .cursor-container, .text-line-container{
+    height: 10px;
+    display: inline-flex;
+}
+
+.cursor-image{
+    height: 7px;
+    display: inline-flex;
+    visibility: hidden;
+}
+
+.cursor-visible{
+    visibility: visible !important;
+}
+

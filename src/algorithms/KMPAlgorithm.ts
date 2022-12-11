@@ -1,7 +1,13 @@
 import {State} from "./State";
 import {Interval} from "./Interval";
 
-export function* knuthMorrisPrattGenerator(P: string, T: string): Generator<object> {
+export type Event = {
+    data: State;
+    msg: string;
+    line: number;
+};
+
+export function* knuthMorrisPrattGenerator(P: string, T: string): Generator<Event> {
     let st = 0, lp = P.length, lt = T.length;
     let fail: number[] = [0];
     let occ: number[] = [];
@@ -21,17 +27,39 @@ export function* knuthMorrisPrattGenerator(P: string, T: string): Generator<obje
     for(let i=0; i < lt; i++){
         yield {
             data: State.buildState(i, st, true, Interval.prefix(0)),
-            msg: `Analizamos el caracter en la posicion ${i}. ` +
-              (P[st] === T[i] ?
-              `Hay un coincidencia del caracter '${T[i]}' con el caracter correspondiente en el patron.` :
-              `No hay coincidencia entre los caracteres '${T[i]}' y '${P[st]}', por lo que ajustamos el patron.`)
+            msg: `Analizamos el caracter en la posicion ${i}. `,
+            line: 1
         };
+
+        if( st === 0 && P[st] !== T[i] ){
+            yield {
+                data: State.buildState(i, st, true, Interval.prefix(0)),
+                msg: `No hay coincidencia entre los caracteres '${T[i]}' y '${P[st]}',` +
+                  ` pero no ajustamos el patron, ya que hemos hecho coincidir solo la cadena vacia (st = 0).`,
+                line: 2
+            };
+        }
+        else if( P[st] === T[i] ){
+            yield {
+                data: State.buildState(i, st, true, Interval.prefix(0)),
+                msg: `El ciclo while no se ejecuta`,
+                line: 2
+            };
+        }
+        else if( st > 0 && P[st] !== T[i] ){
+            yield {
+                data: State.buildState(i, st, true, Interval.prefix(0)),
+                msg: `Ya que no hay coincidencia entre los caracteres '${T[i]}' y '${P[st]}', ajustamos el patron.`,
+                line: 2
+            };
+        }
 
         while( st > 0 && P[st] !== T[i] ){
             yield {
                 data: State.buildState(i, st, false, Interval.prefix(fail[st-1])),
                 msg: `El mayor prefijo de "${P.substring(0, st)}",` +
-                     ` que tambien es su sufijo propio, es ${fail[st-1] === 0 ? "la cadena vacia" : `"` + P.substring(0, fail[st-1]) + `"`}.`
+                     ` que tambien es su sufijo propio, es ${fail[st-1] === 0 ? "la cadena vacia" : `"` + P.substring(0, fail[st-1]) + `"`}.`,
+                line: 3
             };
 
             let old_st = st;
@@ -40,7 +68,8 @@ export function* knuthMorrisPrattGenerator(P: string, T: string): Generator<obje
             yield {
                 data: State.buildState(i, st, false, Interval.prefix(old_st)),
                 msg: `Hemos ajustado el patron. Lo hemos desplazado hacia la derecha hasta` +
-                  ` dejar como coincidencia el prefijo "${P.substring(0, st)}"`
+                  ` dejar como coincidencia el prefijo "${P.substring(0, st)}"`,
+                line: 3
             };
 
             yield {
@@ -50,18 +79,32 @@ export function* knuthMorrisPrattGenerator(P: string, T: string): Generator<obje
                     P[st] === T[i] ?
                       `Los caracteres coinciden.` :
                       `Los caracteres '${T[i]}' y '${P[st]}' no coinciden.`
-                  )
+                  ),
+                line: 2
             };
         }
 
+        yield {
+            data: State.buildState(i, st, true, Interval.prefix(0)),
+            msg: `Comparamos los caracteres P[st] y T[i].`,
+            line: 4
+        };
+
+
         if( P[st] === T[i] ){
+            yield {
+                data: State.buildState(i, st, true, Interval.prefix(0)),
+                msg: `Hay una coincidencia, ya que ambos caracteres son iguales a '${T[i]}'. Aumentamos` +
+                  ` en 1 el largo del prefijo matcheado`,
+                line: 5
+            };
             st++;
         }
-
-        if( st === 0 ){
+        else {
             yield {
-                data: State.buildState(i, st, true, Interval.prefix(st)),
-                msg: `No hay coincidencias. Ahora pasamos a analizar el siguiente caracter del texto.`
+                data: State.buildState(i, st, true, Interval.prefix(0)),
+                msg: `No hay coincidencia, ya que los caracteres son '${P[st]}' y '${T[i]}'.`,
+                line: 4
             };
         }
 
