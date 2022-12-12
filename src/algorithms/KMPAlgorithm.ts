@@ -131,11 +131,19 @@ export function* knuthMorrisPrattGenerator(P: string, T: string): Generator<Even
             st = fail[st-1];
 
             yield {
+                data: State.buildState(i+1, old_st, false, false, Interval.prefix(st)),
+                msg: `Ahora debemos ajustar el patron. El mayor prefijo de "${P.substring(0, old_st)}"` +
+                  ` que es a la vez su sufijo, es "${P.substring(0, st)}".`,
+                line: 7
+            };
+
+            yield {
                 data: State.buildState(i+1, st, false, false, Interval.prefix(st)),
-                msg: `Ahora ajustamos el patron. El mayor prefijo de ${P.substring(0, st)}` +
-                  ` Hemos encontrado una ocurrencia del patron, que comienza en la posicion ${i-lp+1}.`,
+                msg: `Hemos ajustado el patron. Lo hemos desplazado hacia la derecha hasta` +
+                ` dejar como coincidencia el prefijo "${P.substring(0, st)}".`,
                 line: 8
             };
+
         }
         else{
             yield {
