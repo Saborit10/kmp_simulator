@@ -22,7 +22,9 @@ export class State{
         this._showCmpText = showCmpText;
     }
 
-    public static buildState(i: number, st: number, showCmpText: boolean, showCmpPattern: boolean, selectedPatternInterval: Interval): State{
+    public static buildState(i: number, st: number, showCmpText: boolean, showCmpPattern: boolean,
+                             selectedPatternInterval: Interval): State{
+
         let visiblePatternPrefixLength = st + (showCmpPattern ? 1 : 0);
         let patternPos = i - st;
 

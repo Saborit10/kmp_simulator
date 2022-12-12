@@ -1,6 +1,6 @@
 
 // TSX
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {Matcher} from "./components/Matcher";
 import {Controller} from "./components/Controller";
 import {CodeContainer} from "./components/CodeContainer";
@@ -14,6 +14,7 @@ import {Interval} from "./algorithms/Interval";
 import {State} from './algorithms/State'
 import {json_string} from "./algorithms/JavaCode";
 import {Event} from "./algorithms/KMPAlgorithm";
+import {TILE_WIDTH} from "./Constants";
 
 
 function extractAll(generator: Generator<Event>) {
@@ -34,22 +35,38 @@ function extractAll(generator: Generator<Event>) {
 function App() {
 
     function onNextClick() {
-        console.log(eventId)
-        setEventId(eventId + 1);
-        console.log(eventId)
+        if( eventId === events.length-1 ){
+            return;
+        }
 
-        setMsg(events[eventId].msg);
-        setState(events[eventId].data);
-        setLine(events[eventId].line)
+        setEventId(eventId + 1);
+
+        setMsg(events[eventId + 1].msg);
+        setState(events[eventId + 1].data);
+        setLine(events[eventId + 1].line);
     }
 
-    let pattern = "ababaca";
-    let text = "bacbababaabcbab";
+    function onPreviousClick() {
+        if( eventId === 0 )
+            return;
+
+        setEventId(eventId - 1);
+
+        setMsg(events[eventId - 1].msg);
+        setState(events[eventId - 1].data);
+        setLine(events[eventId - 1].line);
+    }
+
 
     // let pattern = "ababb";
     // let text = "abababb";
 
+    // let pattern = "ababaca";
+    // let text = "bacbababaabcbab";
+
     /* Hooks */
+    const [pattern, setPattern] = useState("");
+    const [text, setText] = useState("");
     const [events, setEvents] = useState(extractAll(knuthMorrisPrattGenerator(pattern, text)));
     const [eventId, setEventId] = useState(-1);
     const [msg, setMsg] = useState("");
@@ -67,7 +84,28 @@ function App() {
       )
     );
 
-    const json_object = JSON.parse(json_string)
+    const textInputRef = useRef(null);
+    const patternInputRef = useRef(null);
+
+
+    function onLoadClick() {
+        if( textInputRef.current )
+            setPattern(textInputRef.current["value"]);
+        else
+            setPattern("");
+
+        if( patternInputRef.current )
+            setText(patternInputRef.current["value"]);
+        else
+            setText("");
+
+        setEvents(extractAll(knuthMorrisPrattGenerator(pattern, text)));
+        // setEventId(0);
+    }
+
+
+    const json_object = JSON.parse(json_string);
+
 
     return (
       <div className="App">
@@ -85,6 +123,7 @@ function App() {
                 selectedPatternInterval={state.selectedPatternInterval}
                 visiblePatternPrefixLength={state.visiblePatternPrefixLength}
                 showCmpText={state.showCmpText}
+                isHidden={pattern === "" || text === ""}
           />
 
           <div className="controller-container">
@@ -102,9 +141,20 @@ function App() {
               </div>
 
               <div className="panel-container">
-                  <button onClick={onNextClick}>NEXT</button>
+                  <button onClick={onPreviousClick}>Anterior</button>
+                  <button onClick={onNextClick}>Siguiente</button>
+                  <button onClick={onLoadClick}>Cargar</button>
+                  <input
+                    type="text"
+                    id="pattern-input"
+                    ref={patternInputRef}
+                  />
+                  <input
+                    type="text"
+                    id="text-input"
+                    ref={textInputRef}
+                  />
               </div>
-
           </div>
       </div>
     );

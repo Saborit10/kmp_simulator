@@ -6,6 +6,7 @@ import {TextStringTile} from "./TextStringTile";
 
 // CSS
 import '../styles/Matcher.css'
+import React from "react";
 
 type Prop = {
     pattern: string;
@@ -17,16 +18,22 @@ type Prop = {
     selectedPatternInterval: Interval;
     visiblePatternPrefixLength: number;
     showCmpText: boolean;
+    isHidden: boolean;
 }
 
 export function Matcher({pattern, text, cmpPatternId, cmpTextId, matchedPatternInterval, matchedTextInterval,
-                            selectedPatternInterval, visiblePatternPrefixLength, showCmpText}: Prop){
+                            selectedPatternInterval, visiblePatternPrefixLength, showCmpText, isHidden}: Prop){
 
     let patternPos = matchedTextInterval.start;
     let patternMargin = patternPos * TILE_WIDTH;
 
+    let matcherStyle = {} as React.CSSProperties;
+
+    if( isHidden )
+        matcherStyle["visibility"] = "hidden";
+
     return (
-      <div className="matcher-container">
+      <div className="matcher-container" style={matcherStyle}>
           <div className="text-container">
               <TextStringTile
                 text={text}
