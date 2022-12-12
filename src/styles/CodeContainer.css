@@ -1,7 +1,12 @@
 
+@font-face {
+    font-family: JBMono;
+    src: url("../assets/JetBrainsMono-Light.ttf");
+}
+
 .code-container{
     background-color: #C3C3C3;
-    font-family: "Fira Code", sans-serif;
+    font-family: JBMono, sans-serif;
     font-size: 8px;
     display: block;
 

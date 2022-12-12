@@ -90,16 +90,19 @@ function App() {
 
     function onLoadClick() {
         if( textInputRef.current )
-            setPattern(textInputRef.current["value"]);
-        else
-            setPattern("");
-
-        if( patternInputRef.current )
-            setText(patternInputRef.current["value"]);
+            setText(textInputRef.current["value"]);
         else
             setText("");
 
-        setEvents(extractAll(knuthMorrisPrattGenerator(pattern, text)));
+        if( patternInputRef.current )
+            setPattern(patternInputRef.current["value"]);
+        else
+            setPattern("");
+
+        if( textInputRef.current && patternInputRef.current )
+            setEvents(extractAll(knuthMorrisPrattGenerator(
+                patternInputRef.current["value"],
+                textInputRef.current["value"])));
         // setEventId(0);
     }
 
@@ -147,11 +150,13 @@ function App() {
                   <input
                     type="text"
                     id="pattern-input"
+                    placeholder="Patron"
                     ref={patternInputRef}
                   />
                   <input
                     type="text"
                     id="text-input"
+                    placeholder="Texto"
                     ref={textInputRef}
                   />
               </div>

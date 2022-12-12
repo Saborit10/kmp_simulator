@@ -119,13 +119,22 @@ export function* knuthMorrisPrattGenerator(P: string, T: string): Generator<Even
 
         if( st === lp ){
             occ.push(i-lp+1);
-            st = fail[st-1];
-
+            
             yield {
                 data: State.buildState(i+1, st, false, false, Interval.prefix(0)),
                 msg: `La cantidad de caracteres matcheados es igual al largo del patron, que es ${lp}'.` +
                   ` Hemos encontrado una ocurrencia del patron, que comienza en la posicion ${i-lp+1}.`,
                 line: 7
+            };
+            
+            let old_st = st;
+            st = fail[st-1];
+
+            yield {
+                data: State.buildState(i+1, st, false, false, Interval.prefix(st)),
+                msg: `Ahora ajustamos el patron. El mayor prefijo de ${P.substring(0, st)}` +
+                  ` Hemos encontrado una ocurrencia del patron, que comienza en la posicion ${i-lp+1}.`,
+                line: 8
             };
         }
         else{
