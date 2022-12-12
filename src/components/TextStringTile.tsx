@@ -10,17 +10,18 @@ import '../styles/TileString.css'
 
 
 type Prop = {
-    text: string,
-    cmpId: number,
-    matchedInterval: Interval
+    text: string;
+    cmpId: number;
+    matchedInterval: Interval;
+    showCmp: boolean;
 }
 
-export function TextStringTile({text, cmpId, matchedInterval}: Prop) {
+export function TextStringTile({text, cmpId, matchedInterval, showCmp}: Prop) {
     let imageStyle = {
         marginLeft: cmpId * TILE_WIDTH + 6
     } as React.CSSProperties;
 
-    if (cmpId === -1)
+    if (cmpId === -1 || !showCmp )
         imageStyle["visibility"] = "hidden";
 
     return (
@@ -41,7 +42,7 @@ export function TextStringTile({text, cmpId, matchedInterval}: Prop) {
                       character={ch}
                       matched={matchedInterval.contains(i)}
                       selected={false}
-                      compared={i === cmpId}
+                      compared={i === cmpId && showCmp}
                       key={i}
                     />
                   ))

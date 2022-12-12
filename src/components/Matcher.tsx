@@ -8,18 +8,19 @@ import {TextStringTile} from "./TextStringTile";
 import '../styles/Matcher.css'
 
 type Prop = {
-    pattern: string,
-    text: string,
-    cmpPatternId: number,
-    cmpTextId: number,
-    matchedPatternInterval: Interval,
-    matchedTextInterval: Interval,
-    selectedPatternInterval: Interval,
-    visiblePatternPrefixLength: number
+    pattern: string;
+    text: string;
+    cmpPatternId: number;
+    cmpTextId: number;
+    matchedPatternInterval: Interval;
+    matchedTextInterval: Interval;
+    selectedPatternInterval: Interval;
+    visiblePatternPrefixLength: number;
+    showCmpText: boolean;
 }
 
 export function Matcher({pattern, text, cmpPatternId, cmpTextId, matchedPatternInterval, matchedTextInterval,
-                            selectedPatternInterval, visiblePatternPrefixLength}: Prop){
+                            selectedPatternInterval, visiblePatternPrefixLength, showCmpText}: Prop){
 
     let patternPos = matchedTextInterval.start;
     let patternMargin = patternPos * TILE_WIDTH;
@@ -31,6 +32,7 @@ export function Matcher({pattern, text, cmpPatternId, cmpTextId, matchedPatternI
                 text={text}
                 cmpId={cmpTextId}
                 matchedInterval={matchedTextInterval}
+                showCmp={showCmpText}
               />
           </div>
 

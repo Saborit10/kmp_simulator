@@ -62,7 +62,8 @@ function App() {
         new Interval(0, -1),
         new Interval(0, -1),
         new Interval(0, -1),
-        0
+        0,
+        false
       )
     );
 
@@ -83,6 +84,7 @@ function App() {
                 matchedTextInterval={state.matchedTextInterval}
                 selectedPatternInterval={state.selectedPatternInterval}
                 visiblePatternPrefixLength={state.visiblePatternPrefixLength}
+                showCmpText={state.showCmpText}
           />
 
           <div className="controller-container">

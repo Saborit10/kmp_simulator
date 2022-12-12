@@ -21,7 +21,7 @@ export function PatternStringTile({pattern, cmpId, visiblePrefixLength, matchedI
         marginLeft: cmpId * TILE_WIDTH + 6
     } as React.CSSProperties;
 
-    if (cmpId === -1)
+    if ( cmpId === -1 || cmpId >= visiblePrefixLength )
         imageStyle["visibility"] = "hidden";
 
     return (
