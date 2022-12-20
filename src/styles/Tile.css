@@ -10,7 +10,7 @@
 }
 
 .tile{
-    background-color: #AB6B51; /*lightslategray;*/
+    background-color: #F67280; /*lightslategray;*/
     padding: 3px 3px 3px 3px;
     margin: 3px 3px 3px 3px;
     width: 20px;
@@ -24,17 +24,17 @@
 }
 
 .matched{
-    background-color: #2F435A;
+    background-color: #6C5B7B;
     color: #f4f5f6;
 }
 
 .selected{
-    background-color: #39918C;
+    background-color: #5897ce; /*#39918C*/
     color: black;
 }
 
 .compared{
-    background-color: #5C4E4E;
+    background-color: #c3c3c3;
     color: black;
 }
 

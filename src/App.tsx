@@ -144,8 +144,6 @@ function App() {
               </div>
 
               <div className="panel-container">
-                  <button onClick={onPreviousClick}>Anterior</button>
-                  <button onClick={onNextClick}>Siguiente</button>
                   <button onClick={onLoadClick}>Cargar</button>
                   <input
                     type="text"
@@ -159,6 +157,12 @@ function App() {
                     placeholder="Texto"
                     ref={textInputRef}
                   />
+
+                  <div className="nav-container">
+                    <button onClick={onPreviousClick}>Anterior</button>
+                    <button onClick={onNextClick}>Siguiente</button>  
+                  </div>  
+                  
               </div>
           </div>
       </div>
