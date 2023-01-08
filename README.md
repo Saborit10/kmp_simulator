@@ -1,3 +1,13 @@
+# Instalacion 
+* Instalar `node`
+* Cambiar el repositorio de paquetes `npm` a los de la UCLV usando `npm set registry https://nexus.uclv.edu.cu/repository/npm/`
+* Dentro de la carpeta de este proyecto hacer `npm install`
+* Para iniciar el servidor: `npm start`
+* En el navegador se abre la pagina web.
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
